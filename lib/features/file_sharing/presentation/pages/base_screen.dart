@@ -14,7 +14,7 @@ class _BaseScreenState extends State<BaseScreen> {
     HomeScreen(),
     Center(child: Text('Files')),
     Center(child: Text('Chat')),
-    Center(child: Text('Settings')),
+    Center(child: Text('Account')),
   ];
 
   final tabs = const [
@@ -31,8 +31,8 @@ class _BaseScreenState extends State<BaseScreen> {
       label: "Chat",
     ),
     BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.gear),
-      label: "Settings",
+      icon: Icon(CupertinoIcons.person),
+      label: "Account",
     )
   ];
 
