@@ -12,3 +12,8 @@ abstract class Failure extends Equatable {
   @override
   List<Object?> get props => [message, stackTrace];
 }
+
+/// app failure
+class AppFetchFailure extends Failure {
+  const AppFetchFailure({super.message, super.stackTrace});
+}

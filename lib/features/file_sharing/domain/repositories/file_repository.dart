@@ -1,9 +1,10 @@
 import 'package:leske_share/core/type_defs.dart';
 
+import 'package:device_apps/device_apps.dart';
+
 abstract class FileRepository {
-  FutureEither<String> getApps();
-  FutureEither<String> getPhotos();
-  FutureEither<String> getVideos();
-  FutureEither<String> getAudios();
-  FutureEither<String> getPDFs();
+  FutureEitherList<Application> getInstalledApps();
+  FutureEitherList<String> getPhotos();
+  FutureEitherList<String> getVideos();
+  FutureEitherList<String> getAudios();
 }

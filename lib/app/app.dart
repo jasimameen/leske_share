@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:leske_share/core/theme.dart';
-import 'package:leske_share/features/file_sharing/presentation/pages/base_screen.dart';
 import 'package:leske_share/features/file_sharing/presentation/pages/send/send_screen.dart';
+
+import '../core/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -21,6 +21,7 @@ class App extends StatelessWidget {
       // themes
       theme: lightTheme,
       darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
 
       // entry
       home: const SendScreen(),

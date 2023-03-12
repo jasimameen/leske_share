@@ -20,11 +20,11 @@ extension ContextExtension on BuildContext {
   void closeSnackBar() => ScaffoldMessenger.of(this).removeCurrentSnackBar();
 
   /// shows a snackbar with message in the screen
-  void showSnackBar(String message) {
+  void showSnackBar(String message, [Duration? duration]) {
     final snackBar = SnackBar(
       content: Text(message),
       elevation: 10,
-      duration: 250.toMilliSeconds,
+      duration: duration ?? 250.toMilliSeconds,
       behavior: SnackBarBehavior.floating,
       padding: const EdgeInsets.all(16),
       action: SnackBarAction(label: 'close', onPressed: closeSnackBar),
