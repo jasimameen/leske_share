@@ -1,20 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:leske_share/features/file_sharing/presentation/pages/home_screen.dart';
 
-class BaseScreen extends StatefulWidget {
+import 'package:leske_share/features/file_sharing/presentation/pages/home_screen.dart';
+import 'package:leske_share/features/profile/presentation/screens/profile_screen.dart';
+
+final _indexNotifier = ValueNotifier<int>(0);
+
+class BaseScreen extends StatelessWidget {
   const BaseScreen({super.key});
 
-  @override
-  State<BaseScreen> createState() => _BaseScreenState();
-}
-
-class _BaseScreenState extends State<BaseScreen> {
   final List<Widget> pages = const [
     HomeScreen(),
     Center(child: Text('Files')),
-    Center(child: Text('Chat')),
-    Center(child: Text('Account')),
+    ProfileScreen(),
   ];
 
   final tabs = const [
@@ -27,50 +26,62 @@ class _BaseScreenState extends State<BaseScreen> {
       label: "Files",
     ),
     BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.text_bubble),
-      label: "Chat",
-    ),
-    BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.person),
       label: "Account",
     )
   ];
 
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 3,
+      initialIndex: _indexNotifier.value,
       length: tabs.length,
       child: Scaffold(
-        body: SafeArea(child: pages[_currentIndex]),
-
+        body: SafeArea(
+          child: ValueListenableBuilder(
+            valueListenable: _indexNotifier,
+            builder: (context, index, _) => pages[index],
+          ),
+        ),
         //
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.all(16),
-          child: PhysicalModel(
-            color: Colors.blueGrey,
-            elevation: 10,
-            borderRadius: BorderRadius.circular(60),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(60),
-              child: BottomNavigationBar(
-                selectedItemColor: Colors.black,
-                unselectedItemColor: Colors.grey,
-                type: BottomNavigationBarType.fixed,
-                items: tabs,
-                currentIndex: _currentIndex,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                onTap: (index) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
-              ),
-            ),
+        floatingActionButton: _BottomNav(
+          tabs: tabs,
+          onTap: (index) {
+            _indexNotifier.value = index;
+            _indexNotifier.notifyListeners();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNav extends StatelessWidget {
+  const _BottomNav({required this.tabs, this.onTap});
+
+  final List<BottomNavigationBarItem> tabs;
+  final void Function(int)? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: PhysicalModel(
+        color: Colors.blueGrey,
+        elevation: 10,
+        borderRadius: BorderRadius.circular(60),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(60),
+          child: BottomNavigationBar(
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.grey,
+            type: BottomNavigationBarType.fixed,
+            items: tabs,
+            currentIndex: _indexNotifier.value,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            onTap: onTap,
           ),
         ),
       ),

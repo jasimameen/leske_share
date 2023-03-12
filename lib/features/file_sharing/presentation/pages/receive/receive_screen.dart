@@ -8,10 +8,9 @@ class ReceiveScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(title: const Text('Receive')),
-      body: Center(child: Column(
-        children: [
-          const Text('Recive Screeen')
-        ],
+      body: Center(
+          child: Column(
+        children: [const Text('Recive Screeen')],
       )),
     );
   }

@@ -36,12 +36,13 @@ extension ContextExtension on BuildContext {
   }
 
   // navigation
-  void go(Widget page) {
-    Navigator.push(
-      this,
-      MaterialPageRoute(
-        builder: (context) => page,
-      ),
-    );
-  }
+  void go(Widget page) => Navigator.push(
+        this,
+        MaterialPageRoute(
+          builder: (context) => page,
+        ),
+      );
+
+  // pop
+  void pop() => Navigator.pop(this);
 }
